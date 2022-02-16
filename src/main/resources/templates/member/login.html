@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+<body>
+<form action="login/process" method="post">
+    <div>
+        <label for="user_id">ID:</label>
+        <input type="user_id" name="id"required>
+    </div>
+    <div>
+        <label for="user_password">Password:</label>
+        <input type="password" name="user_password"required>
+    </div>
+    <div>
+        <div><a href="signUp"> 회원가입</a></div>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+
+</form>
+</body>
+</html>
