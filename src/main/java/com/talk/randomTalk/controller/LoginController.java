@@ -1,6 +1,8 @@
 package com.talk.randomTalk.controller;
 
 import com.talk.randomTalk.domain.Member;
+import com.talk.randomTalk.form.LoginForm;
+import com.talk.randomTalk.form.MemberForm;
 import com.talk.randomTalk.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,19 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
 
     private final MemberService memberService;
-
-    @GetMapping("login")
-    public String login() {
-        return "member/login";
-    }
 
     @GetMapping("signUp")
     public String signUp(Model model) {
@@ -29,9 +26,9 @@ public class LoginController {
     }
 
     @PostMapping("signUp")
-    public String signUp(@Validated MemberForm memberForm, BindingResult result) {
+    public String signUp(@Validated @ModelAttribute MemberForm memberForm, BindingResult result) {
         if (result.hasErrors()) {
-            return "member/signUp";
+            return "error";
         }
         Member member = new Member();
         member.setId(memberForm.getId());
@@ -44,10 +41,23 @@ public class LoginController {
         return "redirect:/";
     }
 
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        return "member/login";
+    }
+
     @PostMapping("login/process")
-    public String loginAuthentication(Model model) {
-
-        return "redirect:/";
-
+    public String loginAuthentication(@Validated @ModelAttribute LoginForm loginForm, BindingResult result) {
+        if (result.hasErrors()) {
+            return "error";
+        }
+        if (memberService.validLogin(loginForm)) {
+            return "redirect:/";
+        }
+        else{
+            return "error";
+        }
     }
 }

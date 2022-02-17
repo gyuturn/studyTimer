@@ -1,18 +1,20 @@
-package com.talk.randomTalk.controller;
+package com.talk.randomTalk.form;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
 public class MemberForm {
 
-    @NotNull
+    @NotEmpty
     private String id;
-    @NotNull
+    @NotEmpty
     private String password;
-    @NotNull
+    @NotEmpty
     private String name;
     private String email;
 }

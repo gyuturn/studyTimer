@@ -9,20 +9,23 @@
 <body>
 <form action="" method="post" th:object="${memberForm}">
     <div>
-        <label th:for="id">ID:</label>
+        <label th:for="id">*ID:</label>
         <input type="text" th:field="*{id}">
     </div>
     <div>
-        <label th:for="password">Password:</label>
-        <input type="text" th:field="*{password}">
+        <label th:for="password">*Password:</label>
+        <input type="password" th:field="*{password}">
     </div>
     <div>
-        <label th:for="name">NAME:</label>
+        <label th:for="name">*NAME:</label>
         <input type="text" th:field="*{name}">
     </div>
     <div>
         <label th:for="email">Email:</label>
-        <input type="text" th:field="*{email}">
+        <input type="email" th:field="*{email}">
+    </div>
+    <div>
+        *은 필수값입니다.
     </div>
     <div>
         <input type="submit">

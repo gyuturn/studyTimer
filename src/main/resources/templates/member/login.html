@@ -7,14 +7,14 @@
     <title>로그인</title>
 </head>
 <body>
-<form action="login/process" method="post">
+<form action="" method="post" th:object="${loginForm}">
     <div>
-        <label for="user_id">ID:</label>
-        <input type="user_id" name="id"required>
+        <label th:for="id">ID:</label>
+        <input type="text" th:field="*{id}">
     </div>
     <div>
-        <label for="user_password">Password:</label>
-        <input type="password" name="user_password"required>
+        <label th:for="password">Password:</label>
+        <input type="password" th:field="*{password}">
     </div>
     <div>
         <div><a href="signUp"> 회원가입</a></div>
