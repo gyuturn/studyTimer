@@ -29,12 +29,13 @@ public class MemberService {
     //id와 비밀번호 같은지 조회
     public boolean validLogin(LoginForm loginForm) {
         List<Member> listId = memberRepository.findById(loginForm.getId());
-        if (!listId.isEmpty()) {
+        if (listId.isEmpty()) {
             throw new IllegalStateException("일치하는 아이디가 없습니다.");
         }
         else if (listId.size() == 1) {
             Member member = listId.get(0);
-            if (member.getId() == loginForm.getId() && member.getPassword() == loginForm.getPassword()) {
+
+            if (member.getPassword().equals(loginForm.getPassword())) {
                 return true;
             }
         }
@@ -42,6 +43,7 @@ public class MemberService {
             throw new IllegalStateException("아이디가 여러개 중복 조회됩니다??");
         }
         return false;
+
     }
 
     //중복회원 조회

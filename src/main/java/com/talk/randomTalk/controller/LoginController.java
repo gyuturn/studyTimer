@@ -48,16 +48,17 @@ public class LoginController {
         return "member/login";
     }
 
-    @PostMapping("login/process")
-    public String loginAuthentication(@Validated @ModelAttribute LoginForm loginForm, BindingResult result) {
+    @PostMapping("/login")
+    public String loginAuthentication(@Validated @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result) {
         if (result.hasErrors()) {
             return "error";
         }
+
+        //로그인 성공한 경우
         if (memberService.validLogin(loginForm)) {
+            System.out.println(loginForm.getId()+"님이 로그인되었습니다!");
             return "redirect:/";
         }
-        else{
-            return "error";
-        }
+        return "error";
     }
 }
