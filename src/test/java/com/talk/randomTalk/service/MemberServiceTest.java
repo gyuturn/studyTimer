@@ -29,7 +29,7 @@ class MemberServiceTest {
     @Test
     public void 회원가입() throws Exception {
         //given
-        Member member = Member.createMember("test1", "1234", "test1", "kksy2423@navert.com");
+        Member member = Member.createMember("test1123", "1234", "test1123", "kksy2423@navert.com");
         //when
         Long saveId = memberService.join(member);
         //then
@@ -39,26 +39,26 @@ class MemberServiceTest {
     @Test
     public void 중복회원검증() throws Exception {
         //given
-        Member memberA = Member.createMember("test2", "1234", "test2", "asds");
-        Member memberB = Member.createMember("test2", "1234", "test3", "asds");
+        Member memberA = Member.createMember("test2352", "1234", "test2352", "asds");
+        Member memberB = Member.createMember("test2352", "1234", "test2352", "asds");
 
         //when
         memberService.join(memberA);
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> memberService.join(memberB));
+
 
 
         //then
-
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> memberService.join(memberB));
     }
 
     @Test
     public void 로그인() throws Exception {
         //given
-        Member member = Member.createMember("test4", "1234", "test4", "");
+        Member member = Member.createMember("test4231", "1234", "test4231", "");
         memberService.join(member);
 
         LoginForm loginForm = new LoginForm();
-        loginForm.setId("test4");
+        loginForm.setId("test4231");
         loginForm.setPassword("1234");
         //when
         boolean b = memberService.validLogin(loginForm);

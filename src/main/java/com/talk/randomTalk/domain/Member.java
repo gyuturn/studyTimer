@@ -3,10 +3,9 @@ package com.talk.randomTalk.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,8 +25,12 @@ public class Member {
 
     private String eMail;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Subject> subjects = new ArrayList<>();
+
     //생성 메서드//
     public static Member createMember(String id, String password, String name, String eMail) {
+
         Member member = new Member();
         member.setId(id);
         member.setPassword(password);
