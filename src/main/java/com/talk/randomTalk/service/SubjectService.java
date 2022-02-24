@@ -29,7 +29,7 @@ public class SubjectService {
         //과목 저장
         subjectRepository.save(subject);
 
-        return subject.getSubjectId();
+        return subject.getId();
 
     }
 

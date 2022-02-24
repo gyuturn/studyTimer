@@ -13,10 +13,10 @@ public class Subject {
     @GeneratedValue
     @Id
     @Column(name = "subject_id")
-    private Long subjectId;
+    private Long id;
 
     @Column(name = "subject_name")
-    private String subjectName;
+    private String name;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,7 +26,7 @@ public class Subject {
     //생성 메서드//
     public static Subject createSubject(String subjectName,Member member) {
         Subject subject = new Subject();
-        subject.setSubjectName(subjectName);
+        subject.setName(subjectName);
         subject.setMember(member);
 
         return subject;
