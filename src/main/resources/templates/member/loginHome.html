@@ -12,7 +12,24 @@
     </div>
 
     <div>
-        <a href=""></a>
+        <a href="subject/add">과목 추가하기</a>
+    </div>
+    <div>공부할 것들</div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>과목</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="subject : ${subjects}">
+                    <td th:text="${subject.subjectId}"></td>
+                    <td th:text="${subject.subjectName}"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

@@ -1,9 +1,11 @@
 package com.talk.randomTalk.controller;
 
 import com.talk.randomTalk.domain.Member;
+import com.talk.randomTalk.domain.Subject;
 import com.talk.randomTalk.form.LoginForm;
 import com.talk.randomTalk.form.MemberForm;
 import com.talk.randomTalk.service.MemberService;
+import com.talk.randomTalk.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +19,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
 
     private final MemberService memberService;
+    private final SubjectService subjectService;
 
     @GetMapping("signUp")
     public String signUp(Model model) {
@@ -80,6 +84,8 @@ public class LoginController {
         }
         String memberId = cookies[0].getValue();
         model.addAttribute("memberId", memberId);
+        List<Subject> subjects = subjectService.findSubjects();
+        model.addAttribute("subjects", subjects);
         return "member/loginHome";
     }
 }

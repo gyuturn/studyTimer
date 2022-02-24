@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,5 +19,10 @@ public class SubjectRepository {
 
     public Subject findOne(Long subjectId) {
         return em.find(Subject.class, subjectId);
+    }
+
+    public List<Subject> findAll(){
+        return em.createQuery("select s from Subject s", Subject.class)
+                .getResultList();
     }
 }

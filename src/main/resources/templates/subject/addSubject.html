@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>과목추가</title>
+</head>
+<body>
+<a th:href="@{/loginHome}">홈으로 가기</a>
+    <form action="" method="post" th:object="${subjectForm}">
+        <label th:for="name">과목이름(현재는 영어만 가능):</label>
+        <input type="text" th:field="*{name}">
+
+        <div>
+            <button type="submit">확인</button>
+            <button type="reset" id="cancel_add_subject_Btn">취소</button>
+        </div>
+    </form>
+
+
+</body>
+</html>
