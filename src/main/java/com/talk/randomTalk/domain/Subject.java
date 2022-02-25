@@ -19,8 +19,8 @@ public class Subject {
     @Column(name = "subject_name")
     private String name;
 
-    @Column(name="study_time")
-    private LocalTime time;
+    @Column(name = "study_time")
+    private LocalTime time = LocalTime.of(00, 00, 00);
 
 
     @ManyToOne(fetch = FetchType.LAZY)

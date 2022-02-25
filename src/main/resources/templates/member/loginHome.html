@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>환영합니다.</title>
+    <script type="text/javascript" th:inline="javascript" th:src="@{/js/subjectButton.js}" defer></script>
 </head>
 <body>
     <div>반갑습니다.
@@ -25,7 +26,7 @@
             </thead>
             <tbody>
                 <tr th:each="subject : ${subjects}">
-                    <td><button></button></td>
+                    <td><button th:id="${subject.id}">시작</button></td>
                     <td th:text="${subject.name}"></td>
                     <td th:text="${subject.time}"></td>
 
