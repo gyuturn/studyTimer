@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -17,6 +18,9 @@ public class Subject {
 
     @Column(name = "subject_name")
     private String name;
+
+    @Column(name="study_time")
+    private LocalTime time;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
