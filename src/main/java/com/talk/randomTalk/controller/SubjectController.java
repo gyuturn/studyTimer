@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
@@ -55,4 +56,10 @@ public class SubjectController {
 
         return "redirect:/loginHome";
     }
+
+//    @GetMapping("subject/timer/{id}")
+//    public String timerSubject(@PathVariable Long id){
+//
+//
+//    }
 }

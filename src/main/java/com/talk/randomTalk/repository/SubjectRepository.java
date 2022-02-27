@@ -25,4 +25,10 @@ public class SubjectRepository {
         return em.createQuery("select s from Subject s", Subject.class)
                 .getResultList();
     }
+
+    public List<Subject> findByMemberId(Long memberId) {
+        return em.createQuery("select s from Subject s where s.member.memberId = :memberid ", Subject.class)
+                .setParameter("memberid", memberId)
+                .getResultList();
+    }
 }

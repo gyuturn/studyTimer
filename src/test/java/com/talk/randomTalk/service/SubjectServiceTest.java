@@ -14,11 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
-@Rollback(value = false)
 class SubjectServiceTest {
 
     @Autowired
@@ -46,5 +47,23 @@ class SubjectServiceTest {
 
         //then
         Assertions.assertThat(subject.getMember()).isEqualTo(member);
+    }
+
+    @Test
+    public void selectByMemberId(){
+        //given
+        Member member = Member.createMember("subjectTest", "1234", "k", "");
+        memberService.join(member);
+
+        Long memberId = member.getMemberId();
+        Long subject1 = subjectService.addSubject(memberId, "subject1");
+        Long subject2 = subjectService.addSubject(memberId, "subject2");
+
+        //when
+        List<Subject> subjectByMemberId = subjectService.findSubjectByMemberId(memberId);
+        //then
+
+        Assertions.assertThat(subjectByMemberId.get(0).getName()).isEqualTo("subject1");
+        Assertions.assertThat(subjectByMemberId.get(1).getName()).isSameAs("subject2");
     }
 }

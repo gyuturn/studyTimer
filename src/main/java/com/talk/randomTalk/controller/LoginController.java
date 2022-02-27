@@ -4,6 +4,7 @@ import com.talk.randomTalk.domain.Member;
 import com.talk.randomTalk.domain.Subject;
 import com.talk.randomTalk.form.LoginForm;
 import com.talk.randomTalk.form.MemberForm;
+import com.talk.randomTalk.repository.MemberRepository;
 import com.talk.randomTalk.service.MemberService;
 import com.talk.randomTalk.service.SubjectService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class LoginController {
 
     private final MemberService memberService;
     private final SubjectService subjectService;
-
+    private final MemberRepository memberRepository;
     @GetMapping("signUp")
     public String signUp(Model model) {
         model.addAttribute("memberForm", new MemberForm());
@@ -82,9 +83,11 @@ public class LoginController {
         if (cookies.length != 1) {
             return "redirect:/";
         }
-        String memberId = cookies[0].getValue();
-        model.addAttribute("memberId", memberId);
-        List<Subject> subjects = subjectService.findSubjects();
+        String Id = cookies[0].getValue();
+        model.addAttribute("memberId", Id);
+        Long memberId = memberRepository.findById(Id).get(0).getMemberId();
+
+        List<Subject> subjects = subjectService.findSubjectByMemberId(memberId);
         model.addAttribute("subjects", subjects);
         return "member/loginHome";
     }

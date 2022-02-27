@@ -33,7 +33,11 @@ public class SubjectService {
 
     }
 
-    public List<Subject> findSubjects(){
+    public List<Subject> findAllSubjects(){
         return subjectRepository.findAll();
+    }
+
+    public List<Subject> findSubjectByMemberId(Long memberId) {
+        return subjectRepository.findByMemberId(memberId);
     }
 }
