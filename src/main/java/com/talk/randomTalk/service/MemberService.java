@@ -1,13 +1,16 @@
 package com.talk.randomTalk.service;
 
 import com.talk.randomTalk.domain.Member;
+import com.talk.randomTalk.domain.Subject;
 import com.talk.randomTalk.form.LoginForm;
 import com.talk.randomTalk.form.MemberForm;
 import com.talk.randomTalk.repository.MemberRepository;
+import com.talk.randomTalk.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -16,6 +19,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final SubjectRepository subjectRepository;
 
     //회원가입
     @Transactional(readOnly = false)
@@ -31,15 +35,13 @@ public class MemberService {
         List<Member> listId = memberRepository.findById(loginForm.getId());
         if (listId.isEmpty()) {
             throw new IllegalStateException("일치하는 아이디가 없습니다.");
-        }
-        else if (listId.size() == 1) {
+        } else if (listId.size() == 1) {
             Member member = listId.get(0);
 
             if (member.getPassword().equals(loginForm.getPassword())) {
                 return true;
             }
-        }
-        else {
+        } else {
             throw new IllegalStateException("아이디가 여러개 중복 조회됩니다??");
         }
         return false;
@@ -62,6 +64,35 @@ public class MemberService {
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 사용중인 이름입니다.");
         }
+    }
+
+    //총 시간 계산
+    @Transactional(readOnly = false)
+    public Long calcTotalTime(Member member) {
+        Member m = memberRepository.findOne(member.getMemberId());
+        List<Subject> byMemberId = subjectRepository.findByMemberId(member.getMemberId());
+        LocalTime totalTime = m.getTotalTime();
+        int hour=totalTime.getHour();
+       int minute=totalTime.getMinute();
+       int second=totalTime.getSecond();
+        for (Subject subject : byMemberId) {
+            hour += subject.getTime().getHour();
+            minute += subject.getTime().getMinute();
+            second += subject.getTime().getSecond();
+        }
+        if (second / 60 >= 1) {
+            second=second%60;
+            minute+=1;
+        }
+        if (minute / 60 >= 1) {
+            minute=minute%60;
+            hour+=1;
+        }
+        LocalTime resultTime = LocalTime.of(hour, minute, second);
+
+
+        m.setTotalTime(resultTime);
+        return m.getMemberId();
     }
 
 

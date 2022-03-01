@@ -37,7 +37,10 @@ public class SubjectService {
         return subjectRepository.findAll();
     }
 
+
     public List<Subject> findSubjectByMemberId(Long memberId) {
         return subjectRepository.findByMemberId(memberId);
     }
+
+
 }
