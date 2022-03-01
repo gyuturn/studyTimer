@@ -57,9 +57,9 @@ public class SubjectController {
         return "redirect:/loginHome";
     }
 
-//    @GetMapping("subject/timer/{id}")
-//    public String timerSubject(@PathVariable Long id){
-//
-//
-//    }
+    @GetMapping("subject/timer/{id}")
+    public String timerSubject(@PathVariable Long id){
+
+
+    }
 }

@@ -10,11 +10,14 @@
     <div>반갑습니다.
         <span th:text="${memberId}"></span>님!
     </div>
+    <div>총 공부 시간</div>
+    <div id="totalTime">
 
+    </div>
     <div>
         <a href="subject/add">과목 추가하기</a>
     </div>
-    <div>옵션</div>
+
     <div>
         <table>
             <thead>
@@ -35,6 +38,8 @@
         </table>
     </div>
     <script type="text/javascript" th:inline="javascript">
+
+
     /*[# th:each="subject : ${subjects}"]*/
        var id=/*[[${subject.id}]]*/;
        goTimer(id);
