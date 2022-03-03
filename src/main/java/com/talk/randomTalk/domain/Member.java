@@ -24,7 +24,7 @@ public class Member {
 
     private String name;
 
-    private LocalTime totalTime;
+    private LocalTime totalTime= LocalTime.of(00, 00, 00);
 
     private String eMail;
 
@@ -42,6 +42,8 @@ public class Member {
 
         return member;
     }
+
+
 
 
 

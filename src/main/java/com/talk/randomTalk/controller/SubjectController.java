@@ -5,6 +5,7 @@ import com.talk.randomTalk.domain.Subject;
 import com.talk.randomTalk.form.MemberForm;
 import com.talk.randomTalk.form.SubjectForm;
 import com.talk.randomTalk.repository.MemberRepository;
+import com.talk.randomTalk.repository.SubjectRepository;
 import com.talk.randomTalk.service.MemberService;
 import com.talk.randomTalk.service.SubjectService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class SubjectController {
 
     private final SubjectService subjectService;
     private final MemberRepository memberRepository;
+    private final SubjectRepository subjectRepository;
 
     @GetMapping("/subject/add")
     public String addSubject(Model model) {
@@ -58,8 +60,14 @@ public class SubjectController {
     }
 
     @GetMapping("subject/timer/{id}")
-    public String timerSubject(@PathVariable Long id){
+    public String timerSubject(@PathVariable Long id, Model model){
+        Subject subject = subjectRepository.findOne(id);
+        Long memberId = subject.getMember().getMemberId();
+        Member member = memberRepository.findOne(memberId);
 
+        model.addAttribute("member", member);
+        model.addAttribute("subject", subject);
 
+        return "subject/timer";
     }
 }

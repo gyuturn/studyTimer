@@ -83,12 +83,20 @@ public class LoginController {
         if (cookies.length != 1) {
             return "redirect:/";
         }
+        //멤버 아이디
         String Id = cookies[0].getValue();
         model.addAttribute("memberId", Id);
+
         Long memberId = memberRepository.findById(Id).get(0).getMemberId();
 
+        //과목 리스트
         List<Subject> subjects = subjectService.findSubjectByMemberId(memberId);
         model.addAttribute("subjects", subjects);
+
+        //총 시간
+        Member member = memberRepository.findById(Id).get(0);
+        memberService.calcTotalTime(member);
+        model.addAttribute("memberTotalTime", member.getTotalTime());
         return "member/loginHome";
     }
 }

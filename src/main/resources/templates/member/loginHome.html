@@ -11,8 +11,8 @@
         <span th:text="${memberId}"></span>님!
     </div>
     <div>총 공부 시간</div>
-    <div id="totalTime">
-
+    <div >
+        <span th:text="${memberTotalTime}"></span>
     </div>
     <div>
         <a href="subject/add">과목 추가하기</a>
@@ -42,6 +42,7 @@
 
     /*[# th:each="subject : ${subjects}"]*/
        var id=/*[[${subject.id}]]*/;
+       console.log(/*[[${subject.time}]]*/);
        goTimer(id);
     /*[/]*/
 
