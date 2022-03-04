@@ -7,17 +7,25 @@
     <title>타이머</title>
 </head>
 <body>
-<a th:href="@{/loginHome}">홈으로 가기</a>
-<form action="" method="post" th:object="${subjectForm}">
-    <label th:for="name">과목이름(현재는 영어만 가능):</label>
-    <input type="text" th:field="*{name}">
-
-    <div>
-        <button type="submit">확인</button>
-        <button type="reset" id="cancel_add_subject_Btn">취소</button>
-    </div>
+<div th:object="${member}">
+    <span>총시간:</span>
+    <span th:text="${member.totalTime}" id="memberTimer"></span>
+</div>
+<div th:object="${subject}">
+    <span th:text="${subject.name}">과목이름</span>
+    <span th:text="${subject.time}">과목 시간</span>
+</div>
+<form>
+    <input type="submit">
 </form>
-
-
 </body>
+
+<script th:inline ="javascript">
+    var memberTime=/*[[${member.totalTime}]]*/ 'default';
+    console.log(memberTime);
+    setInterval(function(){
+
+    },1000)
+
+</script>
 </html>
