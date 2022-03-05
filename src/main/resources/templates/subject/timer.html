@@ -13,7 +13,7 @@
 </div>
 <div th:object="${subject}">
     <span th:text="${subject.name}">과목이름</span>
-    <span th:text="${subject.time}">과목 시간</span>
+    <span th:text="${subject.time}" id="subjectTimer">과목 시간</span>
 </div>
 <form>
     <input type="submit">
@@ -21,11 +21,65 @@
 </body>
 
 <script th:inline ="javascript">
-    var memberTime=/*[[${member.totalTime}]]*/ 'default';
-    console.log(memberTime);
+
+    let memberTimer=/*[[${member.totalTime}]]*/ 'default';
+
+    let memberHour=parseInt(memberTimer.substring(0,2));
+    let memberMinute=parseInt(memberTimer.substring(3,5));
+    let memberSecond=parseInt(memberTimer.substring(6,8));
+
+    let member = {
+        hour: memberHour,
+        minute: memberMinute,
+        second: memberSecond
+    }
+
+    let subjectTimer=/*[[${subject.time}]]*/ 'default';
+    let subjectHour=parseInt(subjectTimer.substring(0,2));
+    let subjectMinute=parseInt(subjectTimer.substring(3,5));
+    let subjectSecond=parseInt(subjectTimer.substring(6,8));
+
+    let subject = {
+      hour: subjectHour,
+        minute: subjectMinute,
+        second: subjectSecond
+    }
+
     setInterval(function(){
+        let memberTime=makeTimer(member);
+        let subjectTime=makeTimer(subject);
+
+        document.getElementById('memberTimer').innerText=memberTime;
+        document.getElementById('subjectTimer').innerText=subjectTime;
 
     },1000)
+
+
+
+    let makeTimer = function(obj){
+
+        obj.second+=1;
+
+        if(obj.second==60){
+           obj.minute+=1;
+            obj.second=0;
+        }
+        if(obj.minute==60){
+            obj.hour+=1;
+            obj.minute=0;
+        }
+
+        let Time=addToZero(String(obj.hour))+":"+addToZero(String(obj.minute))+":"+addToZero(String(obj.second));
+
+        return Time;
+    }
+
+    let addToZero = function(time){
+        if(time.length==1){
+            time="0"+time;
+        }
+        return String(time);
+    }
 
 </script>
 </html>
