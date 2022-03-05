@@ -95,7 +95,6 @@ public class LoginController {
 
         //총 시간
         Member member = memberRepository.findById(Id).get(0);
-        memberService.calcTotalTime(member);
         model.addAttribute("memberTotalTime", member.getTotalTime());
         return "member/loginHome";
     }

@@ -7,16 +7,19 @@
     <title>타이머</title>
 </head>
 <body>
-<div th:object="${member}">
-    <span>총시간:</span>
-    <span th:text="${member.totalTime}" id="memberTimer"></span>
-</div>
-<div th:object="${subject}">
-    <span th:text="${subject.name}">과목이름</span>
-    <span th:text="${subject.time}" id="subjectTimer">과목 시간</span>
-</div>
-<form>
-    <input type="submit">
+<form action="" method="post" th:object="${TimerForm}">
+    <div >
+        <span>총시간:</span>
+        <span th:text="${member.totalTime}" id="memberTimer"></span>
+        <input type="hidden" id="memberTimerInput" th:field="*{memberTime}">
+    </div>
+    <div>
+        <span th:text="${subject.name}">과목이름</span>
+        <span th:text="${subject.time}" id="subjectTimer">과목 시간</span>
+        <input type="hidden" id="subjectTimerInput" th:field="*{subjectTime}">
+    </div>
+
+        <input type="submit">
 </form>
 </body>
 
@@ -51,6 +54,10 @@
 
         document.getElementById('memberTimer').innerText=memberTime;
         document.getElementById('subjectTimer').innerText=subjectTime;
+        document.getElementById('memberTimerInput').value=memberTime;
+        document.getElementById('subjectTimerInput').value=subjectTime;
+
+
 
     },1000)
 

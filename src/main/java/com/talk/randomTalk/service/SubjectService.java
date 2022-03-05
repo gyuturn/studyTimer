@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -42,5 +43,18 @@ public class SubjectService {
         return subjectRepository.findByMemberId(memberId);
     }
 
+
+    public Long calcTime(Subject subject,LocalTime timer){
+        LocalTime time = timer;
+        int hour=timer.getHour();
+        int minute=timer.getMinute();
+        int second=timer.getSecond();
+
+        LocalTime result = LocalTime.of(hour, minute, second);
+        subject.setTime(result);
+
+        return subject.getId();
+
+    }
 
 }

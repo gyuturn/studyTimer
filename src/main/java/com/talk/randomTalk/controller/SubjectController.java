@@ -4,6 +4,7 @@ import com.talk.randomTalk.domain.Member;
 import com.talk.randomTalk.domain.Subject;
 import com.talk.randomTalk.form.MemberForm;
 import com.talk.randomTalk.form.SubjectForm;
+import com.talk.randomTalk.form.TimerForm;
 import com.talk.randomTalk.repository.MemberRepository;
 import com.talk.randomTalk.repository.SubjectRepository;
 import com.talk.randomTalk.service.MemberService;
@@ -31,6 +32,7 @@ public class SubjectController {
     private final SubjectService subjectService;
     private final MemberRepository memberRepository;
     private final SubjectRepository subjectRepository;
+    private final MemberService memberService;
 
     @GetMapping("/subject/add")
     public String addSubject(Model model) {
@@ -67,7 +69,27 @@ public class SubjectController {
 
         model.addAttribute("member", member);
         model.addAttribute("subject", subject);
+        model.addAttribute("TimerForm", new TimerForm());
 
         return "subject/timer";
+    }
+
+    @PostMapping("subject/timer/{subjectId}")
+    public String postTimerSubject(@PathVariable Long subjectId, @Validated @ModelAttribute TimerForm timerForm, BindingResult bindingResult,HttpServletRequest request){
+        if(bindingResult.hasErrors()){
+            return "error";
+        }
+
+        Cookie[] cookies = request.getCookies();
+        //멤버 아이디
+        String memberId = cookies[0].getValue();
+        Subject subject = subjectRepository.findOne(subjectId);
+        Member member = memberRepository.findById(memberId).get(0);
+
+        subjectService.calcTime(subject,timerForm.getSubjectTime());
+        memberService.calcTotalTime(member,timerForm.getMemberTime());
+        return "redirect:/loginHome";
+
+
     }
 }
