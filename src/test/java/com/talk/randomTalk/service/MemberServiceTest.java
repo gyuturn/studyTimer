@@ -86,13 +86,13 @@ class MemberServiceTest {
         Subject one = subjectRepository.findOne(subject1);
         Subject two = subjectRepository.findOne(subject2);
 
-        one.setTime(LocalTime.of(3, 40, 0));
-        two.setTime(LocalTime.of(0, 30, 0));
+        one.setTime(LocalTime.of(0, 0, 40));
+        two.setTime(LocalTime.of(0, 0, 30));
 
         //when
         memberService.calcTotalTime(member);
 
         //then
-        Assertions.assertThat(member.getTotalTime()).isEqualTo(LocalTime.of(4, 10, 00));
+        Assertions.assertThat(member.getTotalTime()).isEqualTo(LocalTime.of(0, 1, 10));
     }
 }
