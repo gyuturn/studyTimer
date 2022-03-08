@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-</head>
+<head th:replace="fragments/header :: header" />
 <body>
-<form action="" method="post" th:object="${loginForm}">
-    <div>
-        <label th:for="id">ID:</label>
-        <input type="text" th:field="*{id}">
-    </div>
-    <div>
-        <label th:for="password">Password:</label>
-        <input type="text" th:field="*{password}">
-    </div>
-    <div>
-        <div><a href="signUp"> 회원가입</a></div>
-    </div>
-    <div>
-        <input type="submit">
-    </div>
 
-</form>
+<div class=""style="width: 100%">
+    <div th:replace="fragments/bodyHeaderBeforeLogin :: bodyHeaderBeforeLogin"/>
+    <form class=" justify-content-center " action="" method="post" th:object="${loginForm}">
+        <div class="item" >
+            <label th:for="id">ID:</label>
+            <input type="text" th:field="*{id}">
+        </div>
+        <div class="item">
+            <label th:for="password">Password:</label>
+            <input type="text" th:field="*{password}">
+        </div>
+        <div class="item">
+            <div><a href="signUp"> 회원가입</a></div>
+        </div>
+        <div class="item">
+            <input type="submit">
+        </div>
+
+    </form>
+</div>
 </body>
 </html>
