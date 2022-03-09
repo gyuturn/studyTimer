@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
-<body>
+<body >
+<div class="d-flex flex-column justify-content-center align-items-center container"  style="text-align:center" >
+        <div class="" th:replace="fragments/bodyHeaderBeforeLogin :: bodyHeaderBeforeLogin"/>
+        <div>
 
-<div class=""style="width: 100%">
-    <div th:replace="fragments/bodyHeaderBeforeLogin :: bodyHeaderBeforeLogin"/>
-    <form class=" justify-content-center " action="" method="post" th:object="${loginForm}">
-        <div class="item" >
-            <label th:for="id">ID:</label>
-            <input type="text" th:field="*{id}">
-        </div>
-        <div class="item">
-            <label th:for="password">Password:</label>
-            <input type="text" th:field="*{password}">
-        </div>
-        <div class="item">
-            <div><a href="signUp"> 회원가입</a></div>
-        </div>
-        <div class="item">
-            <input type="submit">
+            <form  class=" m-5" action="" method="post" th:object="${loginForm}">
+                <div class="col">
+                    <div  >
+                        <label th:for="id">ID:</label>
+                        <input type="text" th:field="*{id}">
+                    </div>
+                    <div >
+                        <label th:for="password">Password:</label>
+                        <input type="password" th:field="*{password}">
+                    </div>
+                </div>
+                <div class=" m-2" style="text-align:center height: auto">
+                    <div><a href="signUp"> 회원가입</a></div>
+                </div>
+                <div class=" m-2" style="text-align:center height: auto">
+                    <input type="submit">
+                </div>
+
+            </form>
         </div>
 
-    </form>
 </div>
 </body>
 </html>
