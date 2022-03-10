@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>환영합니다.</title>
-</head>
+<head th:replace="fragments/header :: header"/>
+
 <body>
-    <div>반갑습니다.
-        <span th:text="${memberId}"></span>님!
-    </div>
-    <div>총 공부 시간</div>
-    <div >
-        <span th:text="${memberTotalTime}"></span>
-    </div>
-    <div>
-        <a href="subject/add">과목 추가하기</a>
-    </div>
+    <div class="container  d-flex flex-column justify-content-center align-items-center">
+        <div th:replace="fragments/bodyHeaderAfterLogin :: bodyHeaderAfterLogin"/>
+        <div>오늘도 열심히 공부합시다
+            <span th:text="${name}"></span>님!
+        </div>
+        <div class=" h5 m-3">총 공부 시간</div>
+        <div class=" h2 m-2">
+            <span th:text="${memberTotalTime}"></span>
+        </div>
 
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>과목</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="subject : ${subjects}">
-                    <td><button th:id="${subject.id}">시작</button></td>
-                    <td th:text="${subject.name}"></td>
-                    <td th:text="${subject.time}"></td>
+        <div>
+            <table style="border-spacing:20px; border-collapse: separate;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  th:each="subject : ${subjects}">
+                        <td><button style="border-radius:75px; "class="alert-secondary bi bi-play" th:id="${subject.id}"></button></td>
+                        <td th:text="${subject.name}"></td>
+                        <td th:text="${subject.time}"></td>
 
 
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <a href="subject/add">과목 추가하기</a>
+        </div>
     </div>
     <script type="text/javascript" th:inline="javascript">
 
