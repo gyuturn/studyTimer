@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
-<div class="container d-flex h-100" >
+<div class="container d-flex flex-column justify-content-center align-items-center " >
     <div th:replace="fragments/bodyHeaderBeforeLogin :: bodyHeaderBeforeLogin"/>
     <div>
-        <img src="img/studyImg.png" style="width: 30%; float:none; margin:0 auto" >
+        <img src="img/studyImg.png"  >
     </div>
     <br>
-    <a href="login"><h1 class="alert-dark" style="width: 30%; float:none; margin:0 auto;" >로그인</h1></a>
+    <a href="login"><h1 class="text-secondary"  >로그인</h1></a>
     <br><br>
-    <a href="signUp"><h1 class="alert-dark"style="width: 30%; float:none; margin:0 auto;" >회원가입</h1></a>
+    <a href="signUp"><h1 class="text-secondary">회원가입</h1></a>
 </div>
 </body>
 </html>
