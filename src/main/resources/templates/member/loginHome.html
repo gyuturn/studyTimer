@@ -3,16 +3,15 @@
 <head th:replace="fragments/header :: header"/>
 
 <body>
-    <div class="container  d-flex flex-column justify-content-center align-items-center">
-        <div th:replace="fragments/bodyHeaderAfterLogin :: bodyHeaderAfterLogin"/>
-        <div>오늘도 열심히 공부합시다
-            <span th:text="${name}"></span>님!
-        </div>
+<div style="padding:0px;"class="container-fluid d-flex ">
+<div th:replace="fragments/sidebar :: sidebar"/>
+
+    <div  class="container  d-flex flex-column justify-content-center align-items-center">
+
         <div class=" h5 m-3">총 공부 시간</div>
         <div class=" h2 m-2">
             <span th:text="${memberTotalTime}"></span>
         </div>
-
         <div>
             <table style="border-spacing:20px; border-collapse: separate;">
                 <thead>
@@ -37,6 +36,7 @@
             <a href="subject/add">과목 추가하기</a>
         </div>
     </div>
+</div>
     <script type="text/javascript" th:inline="javascript">
 
 
@@ -60,7 +60,7 @@
 
 
 
-    </script>
+ </script>
 
 </body>
 </html>
