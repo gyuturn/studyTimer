@@ -85,7 +85,9 @@ public class LoginController {
         }
         //멤버 아이디
         String Id = cookies[0].getValue();
-        model.addAttribute("memberId", Id);
+        List<Member> memberList = memberRepository.findById(Id);
+        String name = memberList.get(0).getName();
+        model.addAttribute("name", name);
 
         Long memberId = memberRepository.findById(Id).get(0).getMemberId();
 
