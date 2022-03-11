@@ -74,25 +74,26 @@ class MemberServiceTest {
         Assertions.assertThat(b).isEqualTo(true);
     }
 
-//    @Test
-//    public void 총시간계산() throws Exception{
-//        //given
-//        Member member = Member.createMember("test423231", "1234", "test423121", "");
-//        Long memberId = memberService.join(member);
-//
-//        Long subject1 = subjectService.addSubject(memberId, "subject1123");
-//        Long subject2 = subjectService.addSubject(memberId, "subject22");
-//
-//        Subject one = subjectRepository.findOne(subject1);
-//        Subject two = subjectRepository.findOne(subject2);
-//
-//        one.setTime(LocalTime.of(0, 0, 40));
-//        two.setTime(LocalTime.of(0, 0, 30));
-//
-//        //when
-//        memberService.calcTotalTime(member);
-//
-//        //then
-//        Assertions.assertThat(member.getTotalTime()).isEqualTo(LocalTime.of(0, 1, 10));
-//    }
+    @Test
+    public void 총시간계산() throws Exception{
+        //given
+        Member member = Member.createMember("test423231", "1234", "test423121", "");
+        Long memberId = memberService.join(member);
+
+        Long subject1 = subjectService.addSubject(memberId, "subject1123");
+        Long subject2 = subjectService.addSubject(memberId, "subject22");
+
+        Subject one = subjectRepository.findOne(subject1);
+        Subject two = subjectRepository.findOne(subject2);
+
+        one.setTime(LocalTime.of(0, 0, 40));
+        two.setTime(LocalTime.of(0, 0, 30));
+
+        List<Subject> byMemberId = subjectRepository.findByMemberId(memberId);
+        //when
+        memberService.calcTotalTime(member,byMemberId);
+
+        //then
+        Assertions.assertThat(member.getTotalTime()).isEqualTo(LocalTime.of(0, 1, 10));
+    }
 }
