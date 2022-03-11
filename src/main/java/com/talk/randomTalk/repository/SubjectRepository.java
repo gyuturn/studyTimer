@@ -3,6 +3,7 @@ package com.talk.randomTalk.repository;
 import com.talk.randomTalk.domain.Subject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -30,5 +31,11 @@ public class SubjectRepository {
         return em.createQuery("select s from Subject s where s.member.memberId = :memberid ", Subject.class)
                 .setParameter("memberid", memberId)
                 .getResultList();
+    }
+
+    @Transactional
+    public void delete(Long subjectId){
+        Subject subject = em.find(Subject.class, subjectId);
+        em.remove(subject);
     }
 }

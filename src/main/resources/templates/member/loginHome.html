@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header"/>
 
 <body>
@@ -22,11 +22,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  th:each="subject : ${subjects}">
-                        <td><button style="border-radius:75px; "class="alert-secondary bi bi-play" th:id="${subject.id}"></button></td>
-                        <td th:text="${subject.name}"></td>
-                        <td th:text="${subject.time}"></td>
-
+                    <tr  th:each="subject : ${subjects}" th:id="${subject.id}">
+                            <td><button style="border-radius:75px;"class="alert-primary bi bi-play" id="create" ></button></td>
+                            <td th:text="${subject.name}"></td>
+                            <td th:text="${subject.time}"></td>
+                            <td><button style="border-radius:75px; "class="alert-danger bi bi-x" id="delete"  ></button></td>
 
                     </tr>
                 </tbody>
@@ -43,18 +43,40 @@
     /*[# th:each="subject : ${subjects}"]*/
        var id=/*[[${subject.id}]]*/;
        goTimer(id);
+       deleteSubject(id);
     /*[/]*/
 
     function goTimer(id){
-    var btn=document.getElementById(id);
-    btn.addEventListener('click',linkToTimer);
+        var startBtn=document.getElementById(id).children[0].children[0];
+        startBtn.addEventListener('click',function(){
+            linkToTimer(id);
+        });
     }
 
-    function linkToTimer(e){
-    var subjectId=e.target.id;
+
+
+    function deleteSubject(id){
+        var deleteBtn=document.getElementById(id).children[3].children[0];
+        deleteBtn.addEventListener('click',function(){
+            sendData(id);
+        });
+    }
+
+<!----> get로 deleteSubject 구현
+    function sendData(id) {
+        var subject=id;
+        var url="/deleteSubject/"+subject;
+        window.location=url;
+    }
+
+
+
+
+<!----> 타이머 화면으로 이동
+    function linkToTimer(id){
+    var subjectId=id;
     var url="subject/timer/"+subjectId;
     window.location=url;
-
     }
 
 

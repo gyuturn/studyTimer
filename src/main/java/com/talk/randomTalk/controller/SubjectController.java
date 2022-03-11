@@ -89,7 +89,12 @@ public class SubjectController {
         subjectService.calcTime(subject,timerForm.getSubjectTime());
         memberService.calcTotalTime(member,timerForm.getMemberTime());
         return "redirect:/loginHome";
+    }
 
-
+    @GetMapping("/deleteSubject/{subjectId}")
+    public String deleteSubject(@PathVariable Long subjectId){
+        System.out.println("subjectId = " + subjectId);
+        subjectRepository.delete(subjectId);
+        return "redirect:/loginHome";
     }
 }
