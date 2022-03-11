@@ -68,11 +68,25 @@ public class MemberService {
 
     //총 시간 계산
     @Transactional(readOnly = false)
-    public Long calcTotalTime(Member member, LocalTime timer) {
-        LocalTime time = timer;
-        int hour = timer.getHour();
-        int minute = timer.getMinute();
-        int second = timer.getSecond();
+    public Long calcTotalTime(Member member,List<Subject> subjects) {
+
+        int hour=0;
+        int minute=0;
+        int second=0;
+        for (Subject subject : subjects) {
+            hour += subject.getTime().getHour();
+            minute += subject.getTime().getMinute();
+            second += subject.getTime().getSecond();
+        }
+        if(second>=60){
+            minute+=1;
+            second=second%60;
+        }
+        if(minute>=60){
+            minute=minute%60;
+            hour+=1;
+        }
+
 
         LocalTime result = LocalTime.of(hour, minute, second);
         member.setTotalTime(result);

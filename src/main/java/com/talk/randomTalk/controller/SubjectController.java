@@ -76,6 +76,7 @@ public class SubjectController {
 
     @PostMapping("subject/timer/{subjectId}")
     public String postTimerSubject(@PathVariable Long subjectId, @Validated @ModelAttribute TimerForm timerForm, BindingResult bindingResult,HttpServletRequest request){
+        System.out.println("timerForm = " + timerForm.getSubjectTime());
         if(bindingResult.hasErrors()){
             return "error";
         }
@@ -84,10 +85,9 @@ public class SubjectController {
         //멤버 아이디
         String memberId = cookies[0].getValue();
         Subject subject = subjectRepository.findOne(subjectId);
-        Member member = memberRepository.findById(memberId).get(0);
 
         subjectService.calcTime(subject,timerForm.getSubjectTime());
-        memberService.calcTotalTime(member,timerForm.getMemberTime());
+
         return "redirect:/loginHome";
     }
 

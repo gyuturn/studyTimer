@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Setter
 public class TimerForm {
     @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalTime memberTime;
-    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime subjectTime;
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime memberTime;
 }

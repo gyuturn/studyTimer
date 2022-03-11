@@ -43,12 +43,12 @@ public class SubjectService {
         return subjectRepository.findByMemberId(memberId);
     }
 
-
+    @Transactional(readOnly = false)
     public Long calcTime(Subject subject,LocalTime timer){
         LocalTime time = timer;
-        int hour=timer.getHour();
-        int minute=timer.getMinute();
-        int second=timer.getSecond();
+        int hour=time.getHour();
+        int minute=time.getMinute();
+        int second=time.getSecond();
 
         LocalTime result = LocalTime.of(hour, minute, second);
         subject.setTime(result);
