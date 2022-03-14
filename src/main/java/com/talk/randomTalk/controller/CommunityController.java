@@ -28,13 +28,22 @@ public class CommunityController {
     private final MemberService memberService;
     private final ArticleRepository articleRepository;
     @GetMapping("community/home")
-    public String home(){
+    public String home(Model model,HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        String memberId = cookies[0].getValue();
+        Member member = memberRepository.findById(memberId).get(0);
+        model.addAttribute("name", member.getName());
+
 
         return "community/home";
     }
 
     @GetMapping("community/write")
-    public String write(Model model){
+    public String write(HttpServletRequest request,Model model){
+        Cookie[] cookies = request.getCookies();
+        String memberId = cookies[0].getValue();
+        Member member = memberRepository.findById(memberId).get(0);
+        model.addAttribute("name", member.getName());
         model.addAttribute("WriteForm",new WriteForm());
         return "community/write";
     }
