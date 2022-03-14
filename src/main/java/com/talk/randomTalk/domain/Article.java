@@ -17,6 +17,8 @@ public class Article {
 
     private String title;
 
+    private String writer;
+
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,11 +27,12 @@ public class Article {
 
 
     //생성메서드
-    public static Article createArticle(String title, String content, Member member) {
+    public static Article createArticle(String title, String content, Member member,String writer) {
         Article article = new Article();
         article.setTitle(title);
         article.setContent(content);
         article.setMember(member);
+        article.setWriter(writer);
 
         return article;
     }

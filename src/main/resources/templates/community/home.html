@@ -6,6 +6,31 @@
 <div style="padding:0px;"class="container-fluid d-flex ">
     <div th:replace="fragments/sidebar :: sidebar"/>
     <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr scope="row" th:each="article : ${articles}" >
+                <td>
+                    <a style="text-decoration:none; color:black" th:href="@{|article/${article.id}|}">
+                         <span th:text="${article.title}"></span>
+                    </a>
+                </td>
+                <td>
+                    <a style="text-decoration:none; color:black" th:href="@{|article/${article.id}|}">
+                        <span th:text="${article.writer}"></span>
+                    </a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
         <a  style="color:black; text-decoration:none;"class="bi bi-pencil-square"href="write"></a>
     </div>
 </div>

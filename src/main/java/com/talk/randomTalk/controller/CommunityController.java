@@ -34,6 +34,9 @@ public class CommunityController {
         Member member = memberRepository.findById(memberId).get(0);
         model.addAttribute("name", member.getName());
 
+        List<Article> articles = articleRepository.findAll();
+        model.addAttribute("articles", articles);
+
 
         return "community/home";
     }
@@ -61,7 +64,7 @@ public class CommunityController {
         String memberId = cookies[0].getValue();
         List<Member> memberList = memberRepository.findById(memberId);
         Member member = memberList.get(0);
-        Article article = Article.createArticle(writeForm.getTitle(), writeForm.getContent(), member);
+        Article article = Article.createArticle(writeForm.getTitle(), writeForm.getContent(), member,memberId);
         articleRepository.save(article);
 
         return "redirect:/community/home";
