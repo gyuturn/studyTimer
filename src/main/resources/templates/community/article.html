@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"/>
+
+<body>
+<div style="padding:0px;"class="container-fluid d-flex ">
+    <div th:replace="fragments/sidebar :: sidebar"/>
+    <div class="container col">
+        <div  class="row-vh d-flex flex-row justify-content-between p-3  bg-dark text-white ">
+            <span><a style="text-decoration:none;" class="text-white" th:href="@{/community/home}">뒤로가기</a></span>
+            <span >신고하기</span>
+        </div>
+        <div class="m-5 border-bottom border-dark" >
+
+            <div class="ml-2 row-vh d-flex flex-row">
+                <div class="bi bi-file-person fs-3"></div>
+                <div>
+                    <div th:text="${article.writer}"></div>
+                    <span th:text="${article.nowDay}"></span>
+                    <span th:text="${article.nowTime}"></span>
+                </div>
+            </div>
+
+            <div class="mt-4" th:text="${article.title}"></div>
+        </div>
+        <div class="m-5 " th:text="${article.content}"></div>
+
+    </div>
+</div>
+</body>
+</html>

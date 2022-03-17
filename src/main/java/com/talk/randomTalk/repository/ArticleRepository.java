@@ -24,4 +24,8 @@ public class ArticleRepository {
         return em.createQuery("select a from Article a", Article.class)
                 .getResultList();
     }
+
+    public Article findById(Long id) {
+        return em.find(Article.class,id);
+    }
 }

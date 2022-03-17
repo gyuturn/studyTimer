@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
@@ -69,5 +70,18 @@ public class CommunityController {
 
         return "redirect:/community/home";
 
+    }
+
+    @GetMapping("community/article/{articleId}")
+    public String article(@PathVariable Long articleId, Model model,HttpServletRequest request) {
+        Article article = articleRepository.findById(articleId);;
+        model.addAttribute("article",article);
+
+        Cookie[] cookies = request.getCookies();
+        String memberId = cookies[0].getValue();
+        Member member = memberRepository.findById(memberId).get(0);
+        model.addAttribute("name", member.getName());
+
+        return "community/article";
     }
 }
