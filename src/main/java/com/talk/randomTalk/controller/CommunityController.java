@@ -67,7 +67,7 @@ public class CommunityController {
         String memberId = cookies[0].getValue();
         List<Member> memberList = memberRepository.findById(memberId);
         Member member = memberList.get(0);
-        Article article = Article.createArticle(writeForm.getTitle(), writeForm.getContent(), member,memberId);
+        Article article = Article.createArticle(writeForm.getTitle(), writeForm.getContent(), member,member.getName());
         articleRepository.save(article);
 
         return "redirect:/community/home";
