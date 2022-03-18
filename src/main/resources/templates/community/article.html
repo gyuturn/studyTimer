@@ -21,11 +21,51 @@
                 </div>
             </div>
 
-            <div class="mt-4" th:text="${article.title}"></div>
+            <div class="mt-4 row-vh d-flex flex-row justify-content-between" >
+               <span th:text="${article.title}"></span>
+                <span id="fixBtn"><a style="text-decoration:none; color:black;" th:href="@{|/community/article/fix/${article.id}|}">수정하기</a></span>
+            </div>
         </div>
         <div class="m-5" th:text="${article.content}"></div>
 
     </div>
 </div>
+<script type="text/javascript" th:inline="javascript">
+    // 쿠키 가져오기 함수
+    const getCookieValue = (key) => {
+      let cookieKey = key + "=";
+      let result = "";
+      const cookieArr = document.cookie.split(";");
+
+      for(let i = 0; i < cookieArr.length; i++) {
+        if(cookieArr[i][0] === " ") {
+          cookieArr[i] = cookieArr[i].substring(1);
+        }
+
+        if(cookieArr[i].indexOf(cookieKey) === 0) {
+          result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+          return result;
+        }
+      }
+      return result;
+    }
+
+
+    let memberId=/*[[${memberForFix.id}]]*/ 'default';
+
+
+    // 수정(memberName== 쿠기값 같은 경우)
+    function hideBtn(name){
+        if(name===memberId){
+             document.getElementById("fixBtn").style.display = "";
+        }
+        else{
+            document.getElementById("fixBtn").style.display = "none";
+        }
+    }
+    hideBtn(getCookieValue('memberId'));
+
+
+</script>
 </body>
 </html>

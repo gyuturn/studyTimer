@@ -6,6 +6,7 @@ import com.talk.randomTalk.form.LoginForm;
 import com.talk.randomTalk.form.WriteForm;
 import com.talk.randomTalk.repository.ArticleRepository;
 import com.talk.randomTalk.repository.MemberRepository;
+import com.talk.randomTalk.service.ArticleService;
 import com.talk.randomTalk.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ public class CommunityController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final ArticleRepository articleRepository;
+    private final ArticleService articleService;
     @GetMapping("community/home")
     public String home(Model model,HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
@@ -81,6 +83,10 @@ public class CommunityController {
         String memberId = cookies[0].getValue();
         Member member = memberRepository.findById(memberId).get(0);
         model.addAttribute("name", member.getName());
+
+        //수정여부 가능 판단
+        Member memberByArticleId = articleService.findMemberByArticleId(articleId);
+        model.addAttribute("memberForFix", memberByArticleId);
 
         return "community/article";
     }
