@@ -6,13 +6,22 @@
 <div style="padding:0px;"class="container-fluid d-flex ">
     <div th:replace="fragments/sidebar :: sidebar"/>
     <div class="container">
-        <form method="post" action="" th:object="${WriteForm}">
-            <input type="text" placeholder="제목을 입력하세요" th:field="*{title}">
-            <div>
-                <textarea  cols="50" rows="10"  th:field="*{content}"></textarea>
-            </div>
-            <input type="submit" value="완료">
-        </form>
+        <div  class="row-vh d-flex flex-row justify-content-center p-3  bg-dark text-white ">
+            <span>글 작성</span>
+        </div>
+        <div class="row-vh d-flex flex-row justify-content-center">
+            <form method="post" action="" th:object="${WriteForm}">
+                <div class="row-vh d-flex flex-column justify-content-center">
+                    <input class="m-3 "type="text" placeholder="제목을 입력하세요" th:field="*{title}">
+                    <div class="m-3">
+                        <textarea  cols="50" rows="10"  placeholder="내용을 작성하세요" th:field="*{content}"></textarea>
+                    </div>
+
+                </div>
+                <input class="ml-3" type="submit" value="작성">
+
+            </form>
+        </div>
     </div>
 </div>
 </body>
