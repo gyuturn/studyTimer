@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"/>
+
+<body>
+<div style="padding:0px;"class="container-fluid d-flex ">
+    <div th:replace="fragments/sidebar :: sidebar"/>
+    <div class="container">
+        <div  class="row-vh d-flex flex-row justify-content-center p-3  bg-dark text-white ">
+            <span>글 수정</span>
+        </div>
+        <div class="row-vh d-flex flex-row justify-content-center">
+            <form method="post" action="" th:object="${WriteForm}">
+                <div class="row-vh d-flex flex-column justify-content-center">
+                    <input class="m-3 "type="text" id="title" th:field="*{title}">
+                    <div class="m-3">
+                        <textarea  cols="50" rows="10"  id="content"th:field="*{content}"></textarea>
+                    </div>
+
+                </div>
+                <input class="ml-3" type="submit" value="수정">
+
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:inline="javascript">
+
+    let articleTitle=/*[[${article.title}]]*/
+    let articleContent=/*[[${article.content}]]*/
+
+    fillText(articleTitle,articleContent);
+
+    function fillText(title,content){
+        document.getElementById("title").value=articleTitle;
+        document.getElementById("content").value=articleContent;
+
+    }
+</script>
+</body>
+</html>

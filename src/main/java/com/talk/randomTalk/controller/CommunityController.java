@@ -30,8 +30,9 @@ public class CommunityController {
     private final MemberService memberService;
     private final ArticleRepository articleRepository;
     private final ArticleService articleService;
+
     @GetMapping("community/home")
-    public String home(Model model,HttpServletRequest request){
+    public String home(Model model, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String memberId = cookies[0].getValue();
         Member member = memberRepository.findById(memberId).get(0);
@@ -45,29 +46,28 @@ public class CommunityController {
     }
 
     @GetMapping("community/write")
-    public String write(HttpServletRequest request,Model model){
+    public String write(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
         String memberId = cookies[0].getValue();
         Member member = memberRepository.findById(memberId).get(0);
         model.addAttribute("name", member.getName());
-        model.addAttribute("WriteForm",new WriteForm());
+        model.addAttribute("WriteForm", new WriteForm());
         return "community/write";
     }
 
     @PostMapping("community/write")
     public String postWrite(@Validated @ModelAttribute("WriteForm") WriteForm writeForm,
-                            BindingResult result, HttpServletRequest request){
+                            BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "error";
         }
-
 
 
         Cookie[] cookies = request.getCookies();
         String memberId = cookies[0].getValue();
         List<Member> memberList = memberRepository.findById(memberId);
         Member member = memberList.get(0);
-        Article article = Article.createArticle(writeForm.getTitle(), writeForm.getContent(), member,member.getName());
+        Article article = Article.createArticle(writeForm.getTitle(), writeForm.getContent(), member, member.getName());
         articleRepository.save(article);
 
         return "redirect:/community/home";
@@ -75,9 +75,10 @@ public class CommunityController {
     }
 
     @GetMapping("community/article/{articleId}")
-    public String article(@PathVariable Long articleId, Model model,HttpServletRequest request) {
-        Article article = articleRepository.findById(articleId);;
-        model.addAttribute("article",article);
+    public String article(@PathVariable Long articleId, Model model, HttpServletRequest request) {
+        Article article = articleRepository.findById(articleId);
+        ;
+        model.addAttribute("article", article);
 
         Cookie[] cookies = request.getCookies();
         String memberId = cookies[0].getValue();
@@ -89,5 +90,27 @@ public class CommunityController {
         model.addAttribute("memberForFix", memberByArticleId);
 
         return "community/article";
+    }
+
+    @GetMapping("community/article/fix/{articleId}")
+    public String fixArticle(@PathVariable Long articleId,Model model){
+        Article article = articleRepository.findById(articleId);
+        Member member = articleService.findMemberByArticleId(articleId);
+        model.addAttribute("article", article);
+        model.addAttribute("WriteForm", new WriteForm());
+        model.addAttribute("name", member.getName());
+
+        return "community/fixArticle";
+    }
+
+    @PostMapping("community/article/fix/{articleId}")
+    public String postFixArticle(@PathVariable Long articleId,@Validated @ModelAttribute("WriteForm") WriteForm writeForm, BindingResult result){
+        if (result.hasErrors()) {
+            return"error";
+        }
+        Article article = articleRepository.findById(articleId);
+        articleService.fixArticle(article, writeForm);
+
+        return "redirect:/community/home";
     }
 }

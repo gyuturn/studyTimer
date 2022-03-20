@@ -76,7 +76,6 @@ public class SubjectController {
 
     @PostMapping("subject/timer/{subjectId}")
     public String postTimerSubject(@PathVariable Long subjectId, @Validated @ModelAttribute TimerForm timerForm, BindingResult bindingResult,HttpServletRequest request){
-        System.out.println("timerForm = " + timerForm.getSubjectTime());
         if(bindingResult.hasErrors()){
             return "error";
         }
@@ -93,8 +92,9 @@ public class SubjectController {
 
     @GetMapping("/deleteSubject/{subjectId}")
     public String deleteSubject(@PathVariable Long subjectId){
-        System.out.println("subjectId = " + subjectId);
         subjectRepository.delete(subjectId);
         return "redirect:/loginHome";
     }
+
+
 }

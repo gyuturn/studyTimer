@@ -2,6 +2,7 @@ package com.talk.randomTalk.service;
 
 import com.talk.randomTalk.domain.Article;
 import com.talk.randomTalk.domain.Member;
+import com.talk.randomTalk.form.WriteForm;
 import com.talk.randomTalk.repository.ArticleRepository;
 import com.talk.randomTalk.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,15 @@ public class ArticleService {
         Member member = memberRepository.findOne(article.getMember().getMemberId());
         return member;
 
+    }
+
+    //제목 및 내용 수정
+    @Transactional(readOnly = false)
+    public Article fixArticle(Article article, WriteForm writeForm){
+        article.setTitle(writeForm.getTitle());
+        article.setContent(writeForm.getContent());
+
+        return article;
     }
 }
 
